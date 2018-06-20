@@ -1,0 +1,43 @@
+#!/bin/bash 
+###################################################################
+#Script Name	:multiplication_table                                                                                              
+#Description	:print multiplication table of the 1st given number to then last given (optional) number
+#Args           :num1(read num1) num2 (read num2)
+#Author       	: Basu Hela
+#Email         	: Basuhela1999@gmail.com
+###################################################################
+read -p   "Input 1st number = " num1 # read the given input to variable num1
+
+read -p "Input end of the range of the  numbers = " num2
+if [ -n "$num2" ];then
+    echo "The range chosen is from $num1 to  $num2"
+else
+    echo "The number chosen is $num1"
+fi
+
+multiply(){ 
+    
+   if [ -n "$0" ];then
+    for ((  $num1 ;  $num1  <=  $num2 ;  num1=$num1+1 )) #self explanatory; make sure not to append $ infront of num1 in update condition because 1=1+1 is false
+    do
+        for (( j=1 ; j <= 10 ; j++ ))
+        do
+            echo -ne "$num1*$j= $(( $num1 * $j))\t"
+        done
+        echo
+    done
+   fi
+}
+if [ -n "$num1" ];then
+    num1=$num1  # Assgnment to variables are important , otherwise gives syntax error; probably because postional parameters are not mutable
+    if [ -n "$num2" ];then
+        num2=$num2
+        multiply
+    else
+        num2=$num1 #if $num2 is not given. In that case loop goes just for 1 time
+        multiply
+    fi
+else
+    echo "Usage: multiplication_table number1 [number2]"
+fi
+
